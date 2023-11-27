@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://dl.dropboxusercontent.com/scl/fi/fq41dh8yo1kj8lpu12xbg/.png?rlkey=15wzry68vi1wuvfl0dkchj40u&dl=0" type="image" sizes="192x192">
+    <title>Мой Профиль</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;  /* Добавлено: столбец вместо строки */
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 80%;
+        }
+
+        section img {
+            width: 100px; /* Регулируйте размер аватарки по своему усмотрению */
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        section h2 {
+            color: #333;
+            margin: 0;
+        }
+
+        section p {
+            color: gray;
+        }
+
+        .status-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .status {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .status.online {
+            color: green;
+        }
+
+        .status.offline {
+            color: red;
+        }
+
+        .posts {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .post {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .post h3 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .post p {
+            color: gray;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .post-info {
+            color: #555;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .status-button {
+            padding: 8px 16px;
+            background-color: #4285f4; /* Google Blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Стили для бокового меню */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 0;
+            left: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            cursor: pointer;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-icon" onclick="openSidebar()">&#9776;</div>
+    </header>
+
+    <!-- Боковое меню -->
+    <div id="sidebar" class="sidebar">
+        <div class="close-btn" onclick="closeSidebar()">&times;</div>
+        <a href="C:\Users\Администратор\Desktop\SocialNetX\indexBeta.html">Главная</a>
+        <a href="#">Общие Чаты</a>
+        <a href="#">Личные Чаты</a>
+        <a href="#">Галерея</a>
+    </div>
+
+    <section>
+        <!-- Статус онлайн или не онлайн -->
+        <div class="status-container">
+            <p class="status online" id="status">Статус: Онлайн</p>
+            <button class="status-button" onclick="changeStatus()">Изменить статус</button>
+        </div>
+
+        <!-- Аватарка профиля -->
+        <img src="https://dl.dropboxusercontent.com/scl/fi/wmyn47sa3r4pmaxaz328q/SNXpic.png?rlkey=ufg119u1p3e0nr3ze4kup4vgk&dl=0" alt="Avatar">
+
+        <!-- Ник и Юзернейм -->
+        <h2>NickName</h2>
+        <p>Username: @example12345</p>
+
+        <!-- Блок с постами -->
+        <div class="posts">
+            <h2 style="text-align: center;">Твои Посты</h2>
+            <div class="post">
+                <h3>Заголовок Поста 1</h3>
+                <p class="post-info">Пост #1 | Автор: Имя Автора | Дата: 01.01.2023</p>
+                <p>Содержание поста 1...</p>
+            </div>
+            <div class="post">
+                <h3>Заголовок Поста 2</h3>
+                <p class="post-info">Пост #2 | Автор: Имя Автора | Дата: 02.01.2023</p>
+                <p>Содержание поста 2...</p>
+            </div>
+            <!-- Можете добавить еще постов по аналогии -->
+        </div>
+    </section>
+
+    <script>
+        function changeStatus() {
+            const statusElement = document.getElementById('status');
+            const isOnline = statusElement.classList.contains('online');
+            
+            if (isOnline) {
+                statusElement.innerText = 'Статус: Не онлайн';
+                statusElement.classList.remove('online');
+                statusElement.classList.add('offline');
+            } else {
+                statusElement.innerText = 'Статус: Онлайн';
+                statusElement.classList.remove('offline');
+                statusElement.classList.add('online');
+            }
+
+            // Ваш код для отправки запроса на сервер и обновления статуса пользователя
+        }
+
+        function openSidebar() {
+            document.getElementById('sidebar').style.width = '250px';
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').style.width = '0';
+        }
+    </script>
+
+</body>
+</html>
